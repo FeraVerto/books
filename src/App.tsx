@@ -1,7 +1,7 @@
-import React, {Reducer, useReducer, useState} from 'react';
-import {generatePath, Route, Router, useParams, useRouteMatch} from 'react-router-dom';
+import React, {useReducer} from 'react';
+import {Route} from 'react-router-dom';
 import s from './App.module.css';
-import {BookList, BookRecord, BookType} from "./ui/BookList/BookList";
+import {BookList, BookRecord} from "./ui/BookList/BookList";
 import {CreateBook} from "./ui/CreateBook/CreateBook";
 import {EditBook} from "./ui/EditBook/EditBook";
 import {Navigation} from "./ui/Navigation/Navigation";
@@ -46,7 +46,6 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
 export const App = () => {
 
     const [state, dispatch] = useReducer<React.Reducer<StateType, ActionType>>(reducer, initialState);
-
 
     return (
         <div className={s.App}>

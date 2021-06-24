@@ -1,6 +1,7 @@
-import React, {Dispatch, useState} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import {StateType} from "../../App";
 import {useParams} from "react-router-dom";
+import {useFormik} from "formik";
 
 export type EditBookType = {
     state: StateType
@@ -12,47 +13,60 @@ export const EditBook = ({state, dispatch}: EditBookType) => {
     const {id} = useParams<{ id: string }>()
 
     const [editMode, setEditMode] = useState<boolean>(false)
+    const [localStateUpdate, setLocalStateUpdate] = useState<string | null>("")
+    const [localStateDelete, setLocalStateDelete] = useState<string>("")
 
     const deleteBook = (id: string) => {
-        localStorage.removeItem(id)
+        setLocalStateDelete(id)
         dispatch({type: 'DELETE_BOOK', payload: id})
     }
 
-    const saveBook = () => {
-        console.log("Save")
-        setEditMode(true)/*
-        dispatch({type: 'UPDATE_BOOK', payload: {id, book: {title, author}}})*/
-    }
+    const formik = useFormik({
+        initialValues: {
+            bookTitle: '',
+            author: ''
+        },
+        onSubmit: values => {
+            setLocalStateUpdate(JSON.stringify(values))
+        }
+    })
+
+    useEffect(() => {
+        localStateUpdate && localStorage.setItem(id, localStateUpdate)
+        localStateDelete && localStorage.removeItem(localStateDelete)
+    })
 
     return (
         <div>
-            {!editMode
-                && <div>
+            {
+                !editMode && <div>
                     {
                         state.books.map(book => {
                             return book.id === id &&
                                 (
-                                    <div key={book.id}>
+                                    <form onSubmit={formik.handleSubmit} key={book.id}>
                                         <label htmlFor="title">{book.book.bookTitle}</label>
-                                        <input id="title" type="text"/>
+                                        <input id="title"
+                                               name="bookTitle"
+                                               type="text"
+                                               onChange={formik.handleChange}
+                                               value={formik.values.bookTitle}/>
 
                                         <label htmlFor="author">{book.book.author}</label>
-                                        <input id="author" type="text"/>
+                                        <input id="author"
+                                               name="author"
+                                               type="text"
+                                               onChange={formik.handleChange}
+                                               value={formik.values.author}/>
 
-                                        <button onClick={() => deleteBook(book.id)}>Delete</button>
-                                        <button onClick={() => saveBook()}>Save</button>
-                                    </div>
+                                        <button type="submit" onClick={() => deleteBook(book.id)}>Delete</button>
+                                        <button type="submit">Save</button>
+                                    </form>
                                 )
                         })
-
-                        /*state.books.filter(b => b.id === id ? <li key={b.id}>
-                            <span>{b.book.bookTitle}</span>
-                            <span>{b.book.author}</span>
-                            <button onClick={() => deleteBook(b.id)}>Delete</button>
-                            <button onClick={() => editBook()}>Edit</button>
-                        </li> : null)*/
                     }
-                </div> }
+                </div>
+            }
 
         </div>
     )

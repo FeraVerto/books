@@ -1,5 +1,5 @@
-import React, {Dispatch, useEffect, useState} from 'react'
-import {NavLink, useRouteMatch} from 'react-router-dom';
+import React, {useEffect} from 'react'
+import {NavLink} from 'react-router-dom';
 import {StateType} from "../../App";
 
 export type BookType = {
@@ -15,7 +15,6 @@ export type BookRecord = {
 export type BooksListType = {
     state: StateType
     dispatch: any
-
 }
 
 export const BookList = ({state, dispatch}: BooksListType) => {

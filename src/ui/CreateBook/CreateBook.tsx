@@ -11,14 +11,13 @@ export const CreateBook = () => {
         },
         onSubmit: values => {
             const id = uuidv4();
-            const data = JSON.stringify(values)
-            localStorage.setItem(id, data)
+            localStorage.setItem(id, JSON.stringify(values))
         },
     })
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <label htmlFor="">Название книги</label>
+            <label htmlFor="bookTitle">Название книги</label>
             <input id="bookTitle"
                    name="bookTitle"
                    type="text"
