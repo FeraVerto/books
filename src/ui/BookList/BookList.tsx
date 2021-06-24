@@ -1,38 +1,58 @@
-import React, {useEffect, useState} from 'react'
+import React, {Dispatch, useEffect, useState} from 'react'
+import {NavLink, useRouteMatch} from 'react-router-dom';
+import {StateType} from "../../App";
 
-export type bookType = {
+export type BookType = {
     bookTitle: string,
     author: string
 }
 
-export const BookList = () => {
+export type BookRecord = {
+    id: string,
+    book: BookType
+}
 
-    const [arrBooks, setArrBooks] = useState<Array<bookType>>([]);
+export type BooksListType = {
+    state: StateType
+    dispatch: any
+
+}
+
+export const BookList = ({state, dispatch}: BooksListType) => {
 
 
     useEffect(() => {
-        const resultArray: Array<bookType> = []
+        const resultArray: Array<BookRecord> = []
         const keys: Array<string> = Object.keys(localStorage);
         for (const key of keys) {
             const book = localStorage.getItem(key)
-            if (book !== null) resultArray.push(JSON.parse(book))
-
+            if (book !== null) resultArray.push({id: key, book: JSON.parse(book)})
         }
-        setArrBooks(resultArray)
+
+        dispatch({type: 'SET_BOOKS_LIST', payload: resultArray})
+
     }, [])
 
+    const onDoubleClickTheBook = (id: string) => {
+        dispatch({type: 'GET_BOOK', payload: id})
+    }
+
     return (
-        <div>
+        <ul>
+
             {
-                arrBooks.map((a: bookType, i: number) => {
+                state.books.map((book: BookRecord) => {
                     return (
-                        <div key={i}>
-                            <div>{a.bookTitle}</div>
-                            <div>{a.author}</div>
-                        </div>
+                        <NavLink key={book.id} to={`/edit/${book.id}`}>
+                            <li onDoubleClick={() => onDoubleClickTheBook(book.id)}>
+                                <span>{book.book.bookTitle}</span>
+                                <span>{book.book.author}</span>
+                            </li>
+                        </NavLink>
                     )
                 })
             }
-        </div>
+
+        </ul>
     )
 }
