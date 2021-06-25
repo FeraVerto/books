@@ -2,6 +2,9 @@ import React, {Dispatch, useEffect, useState} from 'react';
 import {StateType} from "../../App";
 import {useParams} from "react-router-dom";
 import {useFormik} from "formik";
+import {FormField} from "../FormField/FormField";
+import {BookType} from "../BookList/BookList";
+import {getBase64} from "../getBase64";
 
 export type EditBookType = {
     state: StateType
@@ -18,16 +21,19 @@ export const EditBook = ({state, dispatch}: EditBookType) => {
 
     const deleteBook = (id: string) => {
         setLocalStateDelete(id)
-        dispatch({type: 'DELETE_BOOK', payload: id})
     }
 
-    const formik = useFormik({
+    const formik = useFormik<BookType>({
         initialValues: {
-            bookTitle: '',
-            author: ''
+            title: '',
+            author: '',
+            cover: {}
         },
         onSubmit: values => {
-            setLocalStateUpdate(JSON.stringify(values))
+            getBase64(values.cover).then(base64 => {
+                values = {...values, cover: base64}
+                setLocalStateUpdate(JSON.stringify(values))
+            });
         }
     })
 
@@ -45,19 +51,9 @@ export const EditBook = ({state, dispatch}: EditBookType) => {
                             return book.id === id &&
                                 (
                                     <form onSubmit={formik.handleSubmit} key={book.id}>
-                                        <label htmlFor="title">{book.book.bookTitle}</label>
-                                        <input id="title"
-                                               name="bookTitle"
-                                               type="text"
-                                               onChange={formik.handleChange}
-                                               value={formik.values.bookTitle}/>
-
-                                        <label htmlFor="author">{book.book.author}</label>
-                                        <input id="author"
-                                               name="author"
-                                               type="text"
-                                               onChange={formik.handleChange}
-                                               value={formik.values.author}/>
+                                        <FormField formik={formik}
+                                                   title={book.book.title}
+                                                   author={book.book.author}/>
 
                                         <button type="submit" onClick={() => deleteBook(book.id)}>Delete</button>
                                         <button type="submit">Save</button>

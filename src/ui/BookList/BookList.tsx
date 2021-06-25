@@ -3,8 +3,9 @@ import {NavLink} from 'react-router-dom';
 import {StateType} from "../../App";
 
 export type BookType = {
-    bookTitle: string,
-    author: string
+    title: string,
+    author: string,
+    cover: any
 }
 
 export type BookRecord = {
@@ -32,10 +33,6 @@ export const BookList = ({state, dispatch}: BooksListType) => {
 
     }, [])
 
-    const onDoubleClickTheBook = (id: string) => {
-        dispatch({type: 'GET_BOOK', payload: id})
-    }
-
     return (
         <ul>
 
@@ -43,9 +40,10 @@ export const BookList = ({state, dispatch}: BooksListType) => {
                 state.books.map((book: BookRecord) => {
                     return (
                         <NavLink key={book.id} to={`/edit/${book.id}`}>
-                            <li onDoubleClick={() => onDoubleClickTheBook(book.id)}>
-                                <span>{book.book.bookTitle}</span>
+                            <li>
+                                <span>{book.book.title}</span>
                                 <span>{book.book.author}</span>
+                                <img width={170} height={200} src={book.book.cover} />
                             </li>
                         </NavLink>
                     )

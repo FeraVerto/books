@@ -26,17 +26,6 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 ...state, books: [...action.payload]
             }
 
-        case 'DELETE_BOOK':
-            return {
-                ...state,
-                books: state.books.filter(s => s.id !== action.payload)
-            }
-
-        case 'UPDATE_BOOK':
-            return {
-                ...state
-            }
-
         default:
             return state
     }

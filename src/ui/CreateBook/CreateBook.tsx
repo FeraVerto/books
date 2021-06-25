@@ -1,36 +1,38 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {useFormik} from "formik";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
+import {FormField} from "../FormField/FormField";
+import {BookType} from "../BookList/BookList";
+import {getBase64} from "../getBase64";
 
 export const CreateBook = () => {
 
-    const formik = useFormik({
+    const [createBook, setCreateBook] = useState<string>("")
+
+    const formik = useFormik<BookType>({
         initialValues: {
-            bookTitle: '',
-            author: ''
+            title: '',
+            author: '',
+            cover: {}
         },
         onSubmit: values => {
-            const id = uuidv4();
-            localStorage.setItem(id, JSON.stringify(values))
-        },
+            getBase64(values.cover).then(base64 => {
+                values = {...values, cover: base64}
+                setCreateBook(JSON.stringify(values))
+            });
+        }
+    })
+
+    useEffect(() => {
+        const id = uuidv4();
+        createBook && localStorage.setItem(id, createBook)
     })
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <label htmlFor="bookTitle">Название книги</label>
-            <input id="bookTitle"
-                   name="bookTitle"
-                   type="text"
-                   onChange={formik.handleChange}
-                   value={formik.values.bookTitle}/>
-
-            <label htmlFor="author">Автор книги</label>
-            <input id="author"
-                   name="author"
-                   type="text"
-                   onChange={formik.handleChange}
-                   value={formik.values.author}/>
-
+            <FormField formik={formik}
+                       title={"Название книги"}
+                       author={"Имя автора"}/>
             <button type="submit">Создать</button>
         </form>
     )
