@@ -1,6 +1,9 @@
-import React, {useEffect} from 'react'
+import React, {Dispatch, useEffect} from 'react'
 import {NavLink} from 'react-router-dom';
-import {StateType} from "../../App";
+import {ActionType, StateType} from "../../App";
+import s from './BookList.module.css'
+import {Search} from "../Search/Search";
+import {getBooks} from "../../getBooks";
 
 export type BookType = {
     title: string,
@@ -15,41 +18,37 @@ export type BookRecord = {
 
 export type BooksListType = {
     state: StateType
-    dispatch: any
+    dispatch: Dispatch<ActionType>
 }
+
 
 export const BookList = ({state, dispatch}: BooksListType) => {
 
-
     useEffect(() => {
-        const resultArray: Array<BookRecord> = []
-        const keys: Array<string> = Object.keys(localStorage);
-        for (const key of keys) {
-            const book = localStorage.getItem(key)
-            if (book !== null) resultArray.push({id: key, book: JSON.parse(book)})
-        }
-
-        dispatch({type: 'SET_BOOKS_LIST', payload: resultArray})
-
+        dispatch({type: 'SET_BOOKS_LIST', payload: getBooks()})
     }, [])
 
     return (
-        <ul>
+        <>
+            <Search state={state} dispatch={dispatch}/>
+            <ul className={s.book_list}>
+                {
+                    state.books.map((book: BookRecord) => {
+                        return (
+                            <NavLink className={s.book_item_link} key={book.id} to={`/edit/${book.id}`}>
+                                <li className={s.book_item}>
+                                    <span>Author: {book.book.author ? book.book.author : "unknown"}</span>
+                                    <span>{book.book.title}</span>
+                                    <div className={s.book_item_image}>
+                                        <img alt={book.book.title} src={book.book.cover}/>
+                                    </div>
+                                </li>
+                            </NavLink>
+                        )
+                    })
+                }
+            </ul>
+        </>
 
-            {
-                state.books.map((book: BookRecord) => {
-                    return (
-                        <NavLink key={book.id} to={`/edit/${book.id}`}>
-                            <li>
-                                <span>{book.book.title}</span>
-                                <span>{book.book.author}</span>
-                                <img width={170} height={200} src={book.book.cover} />
-                            </li>
-                        </NavLink>
-                    )
-                })
-            }
-
-        </ul>
     )
 }

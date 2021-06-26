@@ -1,0 +1,15 @@
+.input_image {
+
+}
+
+.image_block {
+    border: 2px solid green;
+    display: flex;
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+
+    border: 2px solid yellow;
+}
