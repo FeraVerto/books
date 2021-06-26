@@ -11,7 +11,6 @@ export const getBase64 = (file: Blob) => {
         //проверка на существование file и проверка существования образа
         if (file.type && file.type.match('image.*')) {
             //запускает процесс чтения Blob, => data: URL
-            console.log("file", file)
             reader.readAsDataURL(file);
         }
     });

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
 .App {
+  font-family: 'Special Elite', cursive;
   text-align: center;
 }
 
@@ -10,12 +11,14 @@
 
 .create_position {
   position: relative;
-  border: 2px solid green;
   height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-h1 {
-  font-family: 'Special Elite', cursive;
+a {
+  text-decoration: none;
 }
 
 

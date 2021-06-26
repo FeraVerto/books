@@ -3,9 +3,9 @@ import {useFormik} from "formik";
 import {v4 as uuidv4} from 'uuid';
 import {FormField} from "../FormField/FormField";
 import {BookType} from "../BookList/BookList";
-import {getBase64} from "../getBase64";
+import {getBase64} from "../common/getBase64";
 import s from "./CreateBook.module.css"
-import {Button} from "../Button/Button";
+import {Button} from "../common/Button/Button";
 
 
 export const CreateBook = () => {
@@ -33,12 +33,14 @@ export const CreateBook = () => {
     })
 
     return (
-        <form className={s.form} onSubmit={formik.handleSubmit}>
-            <h2>Добавить новую книгу</h2>
-            <FormField formik={formik}
-                       title={"Название книги"}
-                       author={"Имя автора"}/>
-            <Button type={"submit"} text={"Создать"}/>
-        </form>
+        <div className={s.create_position}>
+            <form className={s.form} onSubmit={formik.handleSubmit}>
+                <h2>Add a new book</h2>
+                <FormField formik={formik}
+                           title={"Название книги"}
+                           author={"Имя автора"}/>
+                <Button type={"submit"} text={"Создать"}/>
+            </form>
+        </div>
     )
 }

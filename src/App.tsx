@@ -5,7 +5,7 @@ import {BookList, BookRecord} from "./ui/BookList/BookList";
 import {CreateBook} from "./ui/CreateBook/CreateBook";
 import {EditBook} from "./ui/EditBook/EditBook";
 import {Navigation} from "./ui/Navigation/Navigation";
-import {Input} from "./ui/Input/Input";
+import {Input} from "./ui/common/Input/Input";
 import {Search} from "./ui/Search/Search";
 
 export type ActionType = {
@@ -56,22 +56,21 @@ export const App = () => {
                 <Navigation/>
             </header>
             <main className={s.main}>
-                <div className={s.create_position}>
-                    <h1>List of Books</h1>
-
-                    <Route exact path="/" render={() => <BookList state={state}
-                                                                  dispatch={dispatch}/>}/>
-
-                    <Route path="/create" render={() => <CreateBook/>}/>
 
 
-                    <Route path="/edit/:id" render={() => <EditBook state={state}
-                                                                    dispatch={dispatch}
-                                                                    editMode={editMode}
-                                                                    setEditMode={setEditMode}
+                <Route exact path="/" render={() => <BookList state={state}
+                                                              dispatch={dispatch}/>}/>
 
-                    />}/>
-                </div>
+                <Route path="/create" render={() => <CreateBook/>}/>
+
+
+                <Route path="/edit/:id" render={() => <EditBook state={state}
+                                                                dispatch={dispatch}
+                                                                editMode={editMode}
+                                                                setEditMode={setEditMode}
+
+                />}/>
+
             </main>
         </div>
     );

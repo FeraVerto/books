@@ -20,6 +20,7 @@
     width: 290px;
     height: 400px;
     border: 2px solid #282c34;
+    border-radius: 3px;
 }
 
 .book_item {

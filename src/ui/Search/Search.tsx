@@ -1,10 +1,10 @@
 import React, {Dispatch, useEffect, useState} from 'react'
-import {Button} from '../Button/Button';
-import {Input} from "../Input/Input";
+import {Button} from '../common/Button/Button';
+import {Input} from "../common/Input/Input";
 import s from "./Search.module.css"
 import {useFormik} from "formik";
 import {ActionType, StateType} from "../../App";
-import {getBooks} from "../../getBooks";
+import {getBooks} from "../common/getBooks";
 import {BookRecord} from "../BookList/BookList";
 
 type SearchType = {
@@ -14,21 +14,20 @@ type SearchType = {
 
 export const Search = ({dispatch, state}: SearchType) => {
 
-    /*const [valueSearch, setValueSearch] = useState<string>("")*/
-    const [result, setResult] = useState<Array<BookRecord>>()
+    const [receivedBooks, setReceivedBooks] = useState<Array<BookRecord>>()
 
     const formik = useFormik({
         initialValues: {
             search: ''
         },
         onSubmit: values => {
-            dispatch({type: 'SET_BOOKS_LIST', payload: result})
+            dispatch({type: 'SET_BOOKS_LIST', payload: receivedBooks})
             dispatch({type: "SEARCH_FILTER", payload: {filter: values.search}})
         }
     });
 
     useEffect(() => {
-        setResult(getBooks())
+        setReceivedBooks(getBooks())
     }, [])
 
     return (

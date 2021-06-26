@@ -4,8 +4,8 @@ import {Redirect, useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import {FormField} from "../FormField/FormField";
 import {BookType} from "../BookList/BookList";
-import {getBase64} from "../getBase64";
-import {Button} from "../Button/Button";
+import {getBase64} from "../common/getBase64";
+import {Button} from "../common/Button/Button";
 import s from "./EditBook.module.css"
 import {log} from "util";
 
@@ -51,7 +51,6 @@ export const EditBook = ({state, dispatch, editMode, setEditMode}: EditBookType)
     })
 
     useEffect(() => {
-
         localStateUpdate && localStorage.setItem(id, localStateUpdate)
         localStateDelete && localStorage.removeItem(localStateDelete)
         setEditMode(false)
@@ -60,33 +59,35 @@ export const EditBook = ({state, dispatch, editMode, setEditMode}: EditBookType)
     if (editMode) return <Redirect to='/'/>
 
     return (
+        <div className={s.create_position}>
+            <div className={s.form}>
 
-        <div className={s.form}>
+                {
+                    state.books.map(b => {
+                        return b.id === id &&
+                            (
+                                <form onSubmit={formik.handleSubmit} key={b.id}>
+                                    <FormField formik={formik}
+                                               title={"Book Title"}
+                                               author={"Author"}
+                                               cover={b.book.cover}
+                                    />
 
-            {
-                state.books.map(book => {
-                    return book.id === id &&
-                        (
-                            <form onSubmit={formik.handleSubmit} key={book.id}>
-                                <FormField formik={formik}
-                                           title={book.book.title}
-                                           author={book.book.author}
-                                />
+                                    <Button type={"submit"}
+                                            text={"Удалить"}
+                                            onClick={() => {
+                                                deleteBook(b.id)
+                                                setEditMode(true)
+                                            }}/>
+                                    <Button type={"submit"}
+                                            text={"Сохранить"}
+                                    />
 
-                                <Button type={"submit"}
-                                        text={"Удалить"}
-                                        onClick={() => {
-                                            deleteBook(book.id)
-                                            setEditMode(true)
-                                        }}/>
-                                <Button type={"submit"}
-                                        text={"Сохранить"}
-                                />
-
-                            </form>
-                        )
-                })
-            }
+                                </form>
+                            )
+                    })
+                }
+            </div>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import {ActionType, StateType} from "../../App";
 import s from './BookList.module.css'
 import {Search} from "../Search/Search";
-import {getBooks} from "../../getBooks";
+import {getBooks} from "../common/getBooks";
 
 export type BookType = {
     title: string,
@@ -30,6 +30,7 @@ export const BookList = ({state, dispatch}: BooksListType) => {
 
     return (
         <>
+            <h1>List of Books</h1>
             <Search state={state} dispatch={dispatch}/>
             <ul className={s.book_list}>
                 {
