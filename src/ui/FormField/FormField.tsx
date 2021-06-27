@@ -1,9 +1,10 @@
 import React, {ChangeEvent, useState} from 'react'
-import {FormikValues} from "formik/dist/types";
+import {FormikErrors, FormikValues} from "formik/dist/types";
 import s from "./FormField.module.css"
 import {Input} from "../common/Input/Input";
 import download from "./../image/download.svg"
 import noPhoto from "./../image/nophoto.jpg"
+import {BookType} from "../BookList/BookList";
 
 export type FormField = {
     formik: FormikValues
@@ -17,7 +18,7 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
     const [file, setFile] = useState<any>()
 
     const previewPhoto = file && [...file].map((file, i) => (
-        <img alt={title} width={200} height={300} key={i} src={URL.createObjectURL(file)}/>
+        <img className={s.image} alt={title} width={200} height={300} key={i} src={URL.createObjectURL(file)}/>
     ))
 
     const getFile = (event: ChangeEvent) => {
@@ -26,6 +27,7 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
         target.files && setFile(target.files)
     }
 
+
     return (
         <>
             <label htmlFor="title">{title}</label>
@@ -33,15 +35,21 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
                    type={"text"}
                    {...formik.getFieldProps('title')}/>
 
+            {formik.errors.title && formik.touched.title ? <div className={s.error}>{formik.errors.title}</div> : null}
+
             <label htmlFor="author">{author}</label>
             <Input id={"author"}
                    type={"text"}
                    {...formik.getFieldProps('author')}/>
 
+            {formik.errors.author && formik.touched.author ?
+                <div className={s.error}>{formik.errors.author}</div> : null}
+
             <div className={s.file_block}>
 
                 <div className={s.image_container}>
-                    {previewPhoto || <img width={200} height={300} src={cover || noPhoto} alt={title}/>}
+                    {previewPhoto ||
+                    <img className={s.image} width={200} height={300} src={cover || noPhoto} alt={title}/>}
                 </div>
 
                 <div className={s.file_block_wrapper}>
@@ -60,6 +68,9 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
                            onBlur={formik.handleBlur}
                            onChange={getFile}
                     />
+
+                    {formik.errors.cover && formik.touched.cover ?
+                        <div className={s.error}>{formik.errors.cover}</div> : null}
                 </div>
             </div>
 

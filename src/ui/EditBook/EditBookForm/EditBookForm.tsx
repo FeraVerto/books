@@ -38,7 +38,22 @@ export const EditBookForm = ({
                 setLocalStateUpdate(JSON.stringify(values))
             })
             setEditMode(true)
-        }
+        },
+        validate: (values: BookType) => {
+            const errors = {} as BookType
+            if (!values.title) {
+                errors.title = 'Required'
+            }
+
+            if (!values.author) {
+                errors.author = 'Required'
+            }
+
+            if (!values.cover) {
+                errors.cover = 'Required'
+            }
+            return errors
+        },
     })
 
     return (

@@ -1,14 +1,8 @@
-import React, {ChangeEvent, Dispatch, useEffect, useState} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import {ActionType, StateType} from "../../App";
 import {Redirect, useParams} from "react-router-dom";
-import {useFormik} from "formik";
-import {FormField} from "../FormField/FormField";
-import {BookType} from "../BookList/BookList";
-import {getBase64} from "../common/getBase64";
-import {Button} from "../common/Button/Button";
 import s from "./EditBook.module.css"
-import {log} from "util";
-import {EditBookForm} from "../CreateBook/CreateBookForm/EditBookForm";
+import {EditBookForm} from "./EditBookForm/EditBookForm";
 
 export type EditBookType = {
     state: StateType
@@ -19,10 +13,11 @@ export type EditBookType = {
 export const EditBook = ({state, dispatch}: EditBookType) => {
     const {id} = useParams<{ id: string }>()
 
-
     const [localStateUpdate, setLocalStateUpdate] = useState<string | null>("")
     const [localStateDelete, setLocalStateDelete] = useState<string>("")
     const [editMode, setEditMode] = useState<boolean>(false)
+
+    console.log("localStateUpdate", localStateUpdate)
 
     const deleteBook = (id: string) => {
         setLocalStateDelete(id)
@@ -52,6 +47,7 @@ export const EditBook = ({state, dispatch}: EditBookType) => {
                                               id={b.id}
                                               title={b.book.title}
                                               author={b.book.author}
+                                              key={b.id}
                                 />
                             )
                     })

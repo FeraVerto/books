@@ -1,4 +1,5 @@
 export const getBase64 = (file: Blob) => {
+
     return new Promise((resolve, reject) => {
         //создаем объект для чтения файлов с компьютера пользователя
         const reader = new FileReader();

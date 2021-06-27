@@ -6,8 +6,8 @@ import {BookType} from "../BookList/BookList";
 import {getBase64} from "../common/getBase64";
 import s from "./CreateBook.module.css"
 import {Button} from "../common/Button/Button";
-import {ActionType, StateType} from "../../App";
 import {Redirect} from "react-router-dom";
+
 
 export type CreateBookType = {
     editMode: boolean
@@ -25,13 +25,29 @@ export const CreateBook = () => {
             author: '',
             cover: {}
         },
-        onSubmit: async values => {
+        onSubmit: async (values: BookType) => {
+            console.log("values", values)
             await getBase64(values.cover).then(base64 => {
                 values = {...values, cover: base64}
                 setCreateBook(JSON.stringify(values))
             });
             setEditMode(true)
-        }
+        },
+        validate: (values: BookType) => {
+            const errors = {} as BookType
+            if (!values.title) {
+                errors.title = 'Required'
+            }
+
+            if (!values.author) {
+                errors.author = 'Required'
+            }
+
+            if (!values.cover) {
+                errors.cover = 'Required'
+            }
+            return errors
+        },
     })
 
     useEffect(() => {
@@ -46,8 +62,8 @@ export const CreateBook = () => {
             <form className={s.form} onSubmit={formik.handleSubmit}>
                 <h2>Add a new book</h2>
                 <FormField formik={formik}
-                           title={"Book  Title"}
-                           author={"author name"}/>
+                           title={"Book  title"}
+                           author={"Author name"}/>
                 <Button type={"submit"} text={"Create"}/>
             </form>
         </div>

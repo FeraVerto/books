@@ -58,10 +58,7 @@ export const App = () => {
 
 
                 <Route path="/edit/:id" render={() => <EditBook state={state}
-                                                                dispatch={dispatch}
-
-
-                />}/>
+                                                                dispatch={dispatch}/>}/>
 
             </main>
         </div>

@@ -5,7 +5,7 @@ import s from "./Navigaton.module.css"
 export const Navigation = () => {
     return (
         <div className={s.navigation}>
-            <NavLink to="/">List books</NavLink>
+            <NavLink to="/">List of books</NavLink>
             <NavLink to="/create">Create book</NavLink>
         </div>
     )
