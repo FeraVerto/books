@@ -64,7 +64,7 @@ export const CreateBook = () => {
                 <FormField formik={formik}
                            title={"Book  title"}
                            author={"Author name"}/>
-                <Button type={"submit"} text={"Create"}/>
+                <Button className={s.button_position} type={"submit"} text={"Create"}/>
             </form>
         </div>
     )

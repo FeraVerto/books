@@ -35,15 +35,18 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
                    type={"text"}
                    {...formik.getFieldProps('title')}/>
 
-            {formik.errors.title && formik.touched.title ? <div className={s.error}>{formik.errors.title}</div> : null}
+            {formik.errors.title && formik.touched.title
+                ? <div className={s.error}>{formik.errors.title}</div>
+                : null}
 
             <label htmlFor="author">{author}</label>
             <Input id={"author"}
                    type={"text"}
                    {...formik.getFieldProps('author')}/>
 
-            {formik.errors.author && formik.touched.author ?
-                <div className={s.error}>{formik.errors.author}</div> : null}
+            {formik.errors.author && formik.touched.author
+                ? <div className={s.error}>{formik.errors.author}</div>
+                : null}
 
             <div className={s.file_block}>
 
@@ -69,8 +72,9 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
                            onChange={getFile}
                     />
 
-                    {formik.errors.cover && formik.touched.cover ?
-                        <div className={s.error}>{formik.errors.cover}</div> : null}
+                    {formik.errors.cover && formik.touched.cover
+                        ? <div className={s.error}>{formik.errors.cover}</div>
+                        : null}
                 </div>
             </div>
 

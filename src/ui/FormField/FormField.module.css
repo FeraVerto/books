@@ -35,7 +35,6 @@
 .file_block_wrapper {
     width: 100%;
     position: relative;
-    margin: 15px 0;
     text-align: center;
 }
 
@@ -84,4 +83,9 @@
     cursor: pointer;
     margin: 0 auto;
 }
+
+/*input {
+    margin-bottom: 20px;
+}*/
+
 

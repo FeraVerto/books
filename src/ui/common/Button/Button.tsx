@@ -5,10 +5,11 @@ export type ButtonType = {
     text: string
     type: "button" | "submit" | "reset" | undefined
     onClick?: () => void
+    className?: string
 }
 
-export const Button = ({type,  text, onClick}: ButtonType) => {
+export const Button = ({type,  text, onClick, className}: ButtonType) => {
     return (
-        <button className={s.button} type={type} onClick={onClick}>{text}</button>
+        <button className={`${s.button} ${className}`} type={type} onClick={onClick}>{text}</button>
     )
 }

@@ -34,7 +34,7 @@ export const EditBook = ({state, dispatch}: EditBookType) => {
     return (
         <div className={s.create_position}>
             <div className={s.form}>
-
+                <h2>Edit book</h2>
                 {
                     state.books.map(b => {
                         return b.id === id &&

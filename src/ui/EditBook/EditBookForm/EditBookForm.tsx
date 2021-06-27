@@ -4,6 +4,7 @@ import {BookType} from "../../BookList/BookList";
 import {getBase64} from "../../common/getBase64";
 import {FormField} from "../../FormField/FormField";
 import {Button} from "../../common/Button/Button";
+import s from "./EditFormBook.module.css"
 
 export type CreateBookFormType = {
     setLocalStateUpdate: (localStateUpdate: string | null) => void
@@ -17,14 +18,14 @@ export type CreateBookFormType = {
 }
 
 export const EditBookForm = ({
-                                   title,
-                                   author,
-                                   id,
-                                   setLocalStateUpdate,
-                                   deleteBook,
-                                   setEditMode,
-                                   cover
-                               }: CreateBookFormType) => {
+                                 title,
+                                 author,
+                                 id,
+                                 setLocalStateUpdate,
+                                 deleteBook,
+                                 setEditMode,
+                                 cover
+                             }: CreateBookFormType) => {
 
     const formik = useFormik<BookType>({
         initialValues: {
@@ -59,19 +60,23 @@ export const EditBookForm = ({
     return (
         <form onSubmit={formik.handleSubmit} key={id}>
             <FormField formik={formik}
-                       title={"Book Title"}
-                       author={"Author"}
+                       title={"Book title"}
+                       author={"Author name"}
                        cover={cover}
             />
 
-            <Button type={"submit"}
-                    text={"Delete"}
-                    onClick={() => {
-                        deleteBook(id)
-                    }}/>
-            <Button type={"submit"}
-                    text={"Save"}
-            />
+            <div className={s.button_block}>
+                <Button type={"submit"}
+                        className={s.button_position}
+                        text={"Delete"}
+                        onClick={() => {
+                            deleteBook(id)
+                        }}/>
+                <Button type={"submit"}
+                        className={s.button_position}
+                        text={"Save"}
+                />
+            </div>
         </form>
     )
 }

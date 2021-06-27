@@ -34,6 +34,7 @@ export const Search = ({dispatch, state}: SearchType) => {
         <form onSubmit={formik.handleSubmit} className={s.search}>
 
             <Input id={"search"}
+                   className={s.search_input}
                    name={"search"}
                    onChange={formik.handleChange}
                    value={formik.values.search}
