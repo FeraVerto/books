@@ -13,6 +13,8 @@ export type FormField = {
 
 export const FormField = ({formik, title, author, cover}: FormField) => {
 
+    const [file, setFile] = useState<any>()
+
     return (
         <>
             <label htmlFor="title">{title}</label>
@@ -31,14 +33,19 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
             <div className={s.file_block}>
 
                 <div className={s.image_container}>
-                    <img className={s.image} src={cover} width={200} height={200} alt={title}/>
+                    {file && [...file].map((file, i)=>(
+                        <img width={200} height={300} key={i} src={URL.createObjectURL(file)} />
+                    ))}
+{/*
+                    <img className={s.image} src={URL.createObjectURL(file)} width={200} height={200} alt={title}/>
+*/}
                 </div>
 
                 <div className={s.file_block_wrapper}>
                     <label className={s.input_file_button} htmlFor="cover">
                         <span className={s.input_file_icon_wrapper}>
                             <img className={s.input_file_icon} src={download}
-                                 alt="Выбрать файл" width="25"/>
+                                 alt="Select a file" width="25"/>
                         </span>
                         <span className={s.input_file}>Select a file</span>
                     </label>
@@ -51,6 +58,7 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
                            onChange={(event: ChangeEvent) => {
                                const target = event.target as HTMLInputElement
                                formik.setFieldValue("cover", (target.files as FileList)[0]);
+                               target.files && setFile(target.files)
                            }}
                     />
                 </div>

@@ -23,7 +23,7 @@ export const EditBook = ({state, dispatch, editMode, setEditMode}: EditBookType)
 
     const [localStateUpdate, setLocalStateUpdate] = useState<string | null>("")
     const [localStateDelete, setLocalStateDelete] = useState<string>("")
-
+    const [cover, setCover] = useState<any>()
 
     const deleteBook = (id: string) => {
         setLocalStateDelete(id)
@@ -41,6 +41,7 @@ export const EditBook = ({state, dispatch, editMode, setEditMode}: EditBookType)
             cover: {}
         },
         onSubmit: values => {
+            setCover(values.cover)
             getBase64(values.cover).then(base64 => {
                 values = {...values, cover: base64}
                 setLocalStateUpdate(JSON.stringify(values))
@@ -74,13 +75,13 @@ export const EditBook = ({state, dispatch, editMode, setEditMode}: EditBookType)
                                     />
 
                                     <Button type={"submit"}
-                                            text={"Удалить"}
+                                            text={"Delete"}
                                             onClick={() => {
                                                 deleteBook(b.id)
                                                 setEditMode(true)
                                             }}/>
                                     <Button type={"submit"}
-                                            text={"Сохранить"}
+                                            text={"Save"}
                                     />
 
                                 </form>
