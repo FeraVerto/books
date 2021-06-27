@@ -5,8 +5,7 @@ import {BookList, BookRecord} from "./ui/BookList/BookList";
 import {CreateBook} from "./ui/CreateBook/CreateBook";
 import {EditBook} from "./ui/EditBook/EditBook";
 import {Navigation} from "./ui/Navigation/Navigation";
-import {Input} from "./ui/common/Input/Input";
-import {Search} from "./ui/Search/Search";
+
 
 export type ActionType = {
     type: string,
@@ -39,16 +38,10 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
             return state
     }
 }
-/*
-const SearchBooks = () => async() => {
-    await
-}*/
-
 
 export const App = () => {
 
     const [state, dispatch] = useReducer<React.Reducer<StateType, ActionType>>(reducer, initialState);
-    const [editMode, setEditMode] = useState<boolean>(false)
 
     return (
         <div className={s.App}>
@@ -66,8 +59,7 @@ export const App = () => {
 
                 <Route path="/edit/:id" render={() => <EditBook state={state}
                                                                 dispatch={dispatch}
-                                                                editMode={editMode}
-                                                                setEditMode={setEditMode}
+
 
                 />}/>
 

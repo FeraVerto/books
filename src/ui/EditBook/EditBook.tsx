@@ -8,53 +8,30 @@ import {getBase64} from "../common/getBase64";
 import {Button} from "../common/Button/Button";
 import s from "./EditBook.module.css"
 import {log} from "util";
+import {EditBookForm} from "../CreateBook/CreateBookForm/EditBookForm";
 
 export type EditBookType = {
     state: StateType
     dispatch: Dispatch<ActionType>
-    editMode: boolean
-    setEditMode: (editMode: boolean) => void
 }
 
 
-export const EditBook = ({state, dispatch, editMode, setEditMode}: EditBookType) => {
+export const EditBook = ({state, dispatch}: EditBookType) => {
     const {id} = useParams<{ id: string }>()
 
 
     const [localStateUpdate, setLocalStateUpdate] = useState<string | null>("")
     const [localStateDelete, setLocalStateDelete] = useState<string>("")
-    const [cover, setCover] = useState<any>()
+    const [editMode, setEditMode] = useState<boolean>(false)
 
     const deleteBook = (id: string) => {
         setLocalStateDelete(id)
-    }
-
-    const updateBook = () => {
         setEditMode(true)
     }
-
-
-    const formik = useFormik<BookType>({
-        initialValues: {
-            title: '',
-            author: '',
-            cover: {}
-        },
-        onSubmit: values => {
-            setCover(values.cover)
-            getBase64(values.cover).then(base64 => {
-                values = {...values, cover: base64}
-                setLocalStateUpdate(JSON.stringify(values))
-                updateBook()
-            });
-
-        }
-    })
 
     useEffect(() => {
         localStateUpdate && localStorage.setItem(id, localStateUpdate)
         localStateDelete && localStorage.removeItem(localStateDelete)
-        setEditMode(false)
     })
 
     if (editMode) return <Redirect to='/'/>
@@ -67,24 +44,15 @@ export const EditBook = ({state, dispatch, editMode, setEditMode}: EditBookType)
                     state.books.map(b => {
                         return b.id === id &&
                             (
-                                <form onSubmit={formik.handleSubmit} key={b.id}>
-                                    <FormField formik={formik}
-                                               title={"Book Title"}
-                                               author={"Author"}
-                                               cover={b.book.cover}
-                                    />
-
-                                    <Button type={"submit"}
-                                            text={"Delete"}
-                                            onClick={() => {
-                                                deleteBook(b.id)
-                                                setEditMode(true)
-                                            }}/>
-                                    <Button type={"submit"}
-                                            text={"Save"}
-                                    />
-
-                                </form>
+                                <EditBookForm setLocalStateUpdate={setLocalStateUpdate}
+                                              deleteBook={deleteBook}
+                                              editMode={editMode}
+                                              setEditMode={setEditMode}
+                                              cover={b.book.cover}
+                                              id={b.id}
+                                              title={b.book.title}
+                                              author={b.book.author}
+                                />
                             )
                     })
                 }
