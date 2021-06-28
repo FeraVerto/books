@@ -4,9 +4,7 @@ import {BookType} from "../../BookList/BookList";
 import {getBase64} from "../../common/getBase64";
 import {FormField} from "../../FormField/FormField";
 import {Button} from "../../common/Button/Button";
-import s from "./EditFormBook.module.css"
-import {ActionType} from "../../../App";
-import {getBooks} from "../../common/getBooks";
+import s from "./EditFormBook.module.css";
 
 export type CreateBookFormType = {
     setLocalStateUpdate: (localStateUpdate: string | null) => void
@@ -42,11 +40,14 @@ export const EditBookForm = ({
         },
 
         onSubmit: async (values) => {
-            console.log('values', values)
-            await getBase64(values.cover).then(base64 => {
-                values = {...values, cover: base64}
-                setLocalStateUpdate(JSON.stringify(values))
-            })
+            if (typeof values.cover === 'string' && values.cover.startsWith('data:image')) {
+                values = {...values, cover: values.cover}
+            } else {
+                await getBase64(values.cover).then(base64 => {
+                    values = {...values, cover: base64}
+                })
+            }
+            setLocalStateUpdate(JSON.stringify(values))
             setEditMode(true)
         },
 

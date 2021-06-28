@@ -4,8 +4,8 @@ import s from './App.module.css';
 import {BookList, BookRecord} from "./ui/BookList/BookList";
 import {CreateBook} from "./ui/CreateBook/CreateBook";
 import {Navigation} from "./ui/Navigation/Navigation";
-import {EditBook2} from "./ui/EditBook/EditBook2";
 import {EditBook} from "./ui/EditBook/EditBook";
+import {EditBook22} from "./ui/EditBook/EditBook22";
 import {getBooks} from "./ui/common/getBooks";
 
 
@@ -68,7 +68,7 @@ export const App = () => {
                 <Route path="/create" render={() => <CreateBook/>}/>
 
 
-                <Route path="/edit/:id" render={() => <EditBook2 state={state}
+                <Route path="/edit/:id" render={() => <EditBook state={state}
                                                                 dispatch={dispatch}/>}/>
 
             </main>
