@@ -14,7 +14,7 @@ type SearchType = {
 
 export const Search = ({dispatch, state}: SearchType) => {
 
-    const [receivedBooks, setReceivedBooks] = useState<Array<BookRecord>>()
+    const [receivedBooks, setReceivedBooks] = useState<Array<BookRecord>>([])
 
     const formik = useFormik({
         initialValues: {

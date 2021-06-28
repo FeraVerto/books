@@ -3,7 +3,9 @@ import {ActionType, StateType} from "../../App";
 import {Redirect, useParams} from "react-router-dom";
 import s from "./EditBook.module.css"
 import {EditBookForm} from "./EditBookForm/EditBookForm";
+import {BookRecord} from "../BookList/BookList";
 import {getBooks} from "../common/getBooks";
+import {log} from "util";
 
 export type EditBookType = {
     state: StateType
@@ -11,13 +13,12 @@ export type EditBookType = {
 }
 
 
-export const EditBook = ({state, dispatch}: EditBookType) => {
+export const EditBook2 = ({state, dispatch}: EditBookType) => {
     const {id} = useParams<{ id: string }>()
 
     const [localStateUpdate, setLocalStateUpdate] = useState<string | null>("")
     const [localStateDelete, setLocalStateDelete] = useState<string>("")
     const [editMode, setEditMode] = useState<boolean>(false)
-
 
     const deleteBook = (id: string) => {
         setLocalStateDelete(id)
@@ -25,7 +26,6 @@ export const EditBook = ({state, dispatch}: EditBookType) => {
     }
 
     useEffect(() => {
-        /*dispatch({type: 'SET_BOOKS_LIST', payload: getBooks()})*/
         localStateUpdate && localStorage.setItem(id, localStateUpdate)
         localStateDelete && localStorage.removeItem(localStateDelete)
     })
@@ -40,21 +40,22 @@ export const EditBook = ({state, dispatch}: EditBookType) => {
                     state.books.map(b => {
                         return b.id === id &&
                             (
-                                <EditBookForm setLocalStateUpdate={setLocalStateUpdate}
-                                              deleteBook={deleteBook}
-                                              editMode={editMode}
-                                              setEditMode={setEditMode}
-                                              cover={b.book.cover}
-                                              id={b.id}
-                                              title={b.book.title}
-                                              author={b.book.author}
-                                              key={b.id}
-                                              idParam={id}
-                                              dispatch={dispatch}
-                                />
-                            )
-                    })
+                            ( <EditBookForm setLocalStateUpdate={setLocalStateUpdate}
+                                         deleteBook={deleteBook}
+                                         editMode={editMode}
+                                         setEditMode={setEditMode}
+                                         cover={b.book.cover}
+                                         id={b.id}
+                                         title={b.book.title}
+                                         author={b.book.author}
+                                         key={b.id}
+                                         idParam={id}
+                                         dispatch={dispatch}
+                    />))}
+                )
                 }
+
+
             </div>
         </div>
     )

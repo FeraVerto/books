@@ -26,7 +26,6 @@ export const CreateBook = () => {
             cover: {}
         },
         onSubmit: async (values: BookType) => {
-            console.log("values", values)
             await getBase64(values.cover).then(base64 => {
                 values = {...values, cover: base64}
                 setCreateBook(JSON.stringify(values))
