@@ -1,6 +1,6 @@
 import {BookRecord} from "../BookList/BookList";
 
-export const getBooks = () => {
+export const getBooks = (): Array<BookRecord> => {
     const resultArray: Array<BookRecord> = []
     const keys: Array<string> = Object.keys(localStorage);
     for (const key of keys) {

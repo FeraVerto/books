@@ -7,8 +7,6 @@ import {getBase64} from "../utils/getBase64";
 import s from "./CreateBook.module.css"
 import {Button} from "../common/Button/Button";
 import {Redirect} from "react-router-dom";
-import {validate} from "../utils/validate";
-
 
 export type CreateBookType = {
     editMode: boolean
@@ -26,14 +24,30 @@ export const CreateBook = () => {
             author: '',
             cover: {}
         },
+
         onSubmit: async (values: BookType) => {
             await getBase64(values.cover).then(base64 => {
                 values = {...values, cover: base64}
-                setCreateBook(JSON.stringify(values))
-            });
+            })
+            setCreateBook(JSON.stringify(values))
             setEditMode(true)
         },
-        validate
+
+        validate: (values: BookType) => {
+            const errors = {} as BookType
+            if (!values.title) {
+                errors.title = 'Required'
+            }
+
+            if (!values.author) {
+                errors.author = 'Required'
+            }
+
+            if (!values.cover.name) {
+                errors.cover = 'Required'
+            }
+            return errors
+        }
     })
 
     useEffect(() => {

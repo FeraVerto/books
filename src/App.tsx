@@ -34,12 +34,6 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 books: state.books.filter(b => b.book.title.toLowerCase().includes(action.payload.filter.toLowerCase()) || b.book.author.toLowerCase().includes(action.payload.filter.toLowerCase()))
             }
 
-        /*case 'EDIT_BOOK':
-            return {
-                ...state,
-                books: state.books.filter(b => b.id === action.payload)
-            }*/
-
         default:
             return state
     }

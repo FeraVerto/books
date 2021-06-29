@@ -6,7 +6,6 @@ import {FormField} from "../../FormField/FormField";
 import {Button} from "../../common/Button/Button";
 import s from "./EditFormBook.module.css";
 import {ActionType} from "../../../App";
-import {validate} from "../../utils/validate";
 
 export type CreateBookFormType = {
     setLocalStateUpdate: (localStateUpdate: string | null) => void
@@ -40,7 +39,7 @@ export const EditBookForm = ({
         },
 
         onSubmit: async (values) => {
-            if (typeof values.cover === 'string' && values.cover.startsWith('data:image')) {
+             if (typeof values.cover === 'string' && values.cover.startsWith('data:image')) {
                 values = {...values, cover: values.cover}
             } else {
                 await getBase64(values.cover).then(base64 => {
@@ -50,7 +49,18 @@ export const EditBookForm = ({
             setLocalStateUpdate(JSON.stringify(values))
             setEditMode(true)
         },
-        validate
+
+        validate: (values: BookType) => {
+            const errors = {} as BookType
+            if (!values.title) {
+                errors.title = 'Required'
+            }
+
+            if (!values.author) {
+                errors.author = 'Required'
+            }
+            return errors
+        }
     })
 
     return (
@@ -64,14 +74,14 @@ export const EditBookForm = ({
             <div className={s.button_block}>
                 <Button type={"submit"}
                         className={s.button_position}
+                        text={"Save"}
+                />
+                <Button type={"submit"}
+                        className={s.button_position}
                         text={"Delete"}
                         onClick={() => {
                             deleteBook(id)
                         }}/>
-                <Button type={"submit"}
-                        className={s.button_position}
-                        text={"Save"}
-                />
             </div>
         </form>
     )
