@@ -1,16 +1,17 @@
 .navigation {
-    width: 50%;
+    width: 100%;
 
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content:  center;
 
     font-size: 40px;
     text-transform: uppercase;
 }
 
 .navigation a {
-    font-size: 3rem;
+    margin-right: 40px;
+    font-size: 2rem;
     color: var(--link-white-color);
 }
 

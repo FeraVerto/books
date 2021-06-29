@@ -21,9 +21,9 @@
     height: 400px;
 
     text-decoration: none;
-    color: #282c34;
+    color: var(--primary-gray-color);
 
-    border: 2px solid #282c34;
+    border: 2px solid var(--primary-gray-color);
     border-radius: 3px;
 }
 
