@@ -1,10 +1,9 @@
 import React, {ChangeEvent, useState} from 'react'
-import {FormikErrors, FormikValues} from "formik/dist/types";
+import {FormikValues} from "formik/dist/types";
 import s from "./FormField.module.css"
 import {Input} from "../common/Input/Input";
 import download from "./../image/download.svg"
 import noPhoto from "./../image/nophoto.jpg"
-import {BookType} from "../BookList/BookList";
 
 export type FormField = {
     formik: FormikValues
@@ -26,8 +25,7 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
         formik.setFieldValue("cover", (target.files as FileList)[0]);
         target.files && setFile(target.files)
     }
-
-
+    
     return (
         <>
             <label htmlFor="title">{title}</label>
@@ -77,8 +75,6 @@ export const FormField = ({formik, title, author, cover}: FormField) => {
                         : null}
                 </div>
             </div>
-
-
         </>
     )
 }

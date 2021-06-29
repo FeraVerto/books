@@ -3,16 +3,15 @@ import {Button} from '../common/Button/Button';
 import {Input} from "../common/Input/Input";
 import s from "./Search.module.css"
 import {useFormik} from "formik";
-import {ActionType, StateType} from "../../App";
-import {getBooks} from "../common/getBooks";
+import {ActionType} from "../../App";
+import {getBooks} from "../utils/getBooks";
 import {BookRecord} from "../BookList/BookList";
 
 type SearchType = {
-    state: StateType
     dispatch: Dispatch<ActionType>
 }
 
-export const Search = ({dispatch, state}: SearchType) => {
+export const Search = ({dispatch}: SearchType) => {
 
     const [receivedBooks, setReceivedBooks] = useState<Array<BookRecord>>([])
 
@@ -32,9 +31,7 @@ export const Search = ({dispatch, state}: SearchType) => {
 
     return (
         <form onSubmit={formik.handleSubmit} className={s.search}>
-
             <Input id={"search"}
-                   className={s.search_input}
                    name={"search"}
                    onChange={formik.handleChange}
                    value={formik.values.search}

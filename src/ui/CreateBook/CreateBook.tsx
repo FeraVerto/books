@@ -1,12 +1,13 @@
-import React, {Dispatch, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useFormik} from "formik";
 import {v4 as uuidv4} from 'uuid';
 import {FormField} from "../FormField/FormField";
 import {BookType} from "../BookList/BookList";
-import {getBase64} from "../common/getBase64";
+import {getBase64} from "../utils/getBase64";
 import s from "./CreateBook.module.css"
 import {Button} from "../common/Button/Button";
 import {Redirect} from "react-router-dom";
+import {validate} from "../utils/validate";
 
 
 export type CreateBookType = {
@@ -32,21 +33,7 @@ export const CreateBook = () => {
             });
             setEditMode(true)
         },
-        validate: (values: BookType) => {
-            const errors = {} as BookType
-            if (!values.title) {
-                errors.title = 'Required'
-            }
-
-            if (!values.author) {
-                errors.author = 'Required'
-            }
-
-            if (!values.cover) {
-                errors.cover = 'Required'
-            }
-            return errors
-        },
+        validate
     })
 
     useEffect(() => {

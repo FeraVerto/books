@@ -1,62 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
-.App {
-  font-family: 'Special Elite', cursive;
-  text-align: center;
+.app {
+    font-family: 'Special Elite', cursive;
+    text-align: center;
 }
 
 .main {
-  margin: 0 40px;
+    margin: 0 40px;
 }
 
 .create_position {
-  position: relative;
-  height: 90vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    height: 90vh;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 h1 {
-  text-transform: uppercase;
-  font-size: 2.5rem;
+    text-transform: uppercase;
+    font-size: 2.5rem;
 }
 
 h2 {
-  text-transform: uppercase;
-  font-size: 2rem;
+    text-transform: uppercase;
+    font-size: 2rem;
 }
 
 
+.app_header {
+    min-height: 10vh;
 
+    background-color: var(--primary-gray-color);
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-size: calc(10px + 2vmin);
+    color: var(--link-white-color);
 }
 
-.App_header {
-  background-color: #282c34;
-  min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

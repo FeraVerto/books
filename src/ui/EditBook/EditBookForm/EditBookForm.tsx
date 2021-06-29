@@ -1,10 +1,12 @@
 import React, {Dispatch} from 'react'
 import {useFormik} from "formik";
 import {BookType} from "../../BookList/BookList";
-import {getBase64} from "../../common/getBase64";
+import {getBase64} from "../../utils/getBase64";
 import {FormField} from "../../FormField/FormField";
 import {Button} from "../../common/Button/Button";
 import s from "./EditFormBook.module.css";
+import {ActionType} from "../../../App";
+import {validate} from "../../utils/validate";
 
 export type CreateBookFormType = {
     setLocalStateUpdate: (localStateUpdate: string | null) => void
@@ -16,7 +18,7 @@ export type CreateBookFormType = {
     title: string
     author: string
     idParam: string
-    dispatch: Dispatch<any>
+    dispatch: Dispatch<ActionType>
 }
 
 export const EditBookForm = ({
@@ -26,9 +28,7 @@ export const EditBookForm = ({
                                  setLocalStateUpdate,
                                  deleteBook,
                                  setEditMode,
-                                 cover,
-                                 idParam,
-                                 dispatch
+                                 cover
                              }: CreateBookFormType) => {
 
 
@@ -50,22 +50,7 @@ export const EditBookForm = ({
             setLocalStateUpdate(JSON.stringify(values))
             setEditMode(true)
         },
-
-        validate: (values: BookType) => {
-            const errors = {} as BookType
-            if (!values.title) {
-                errors.title = 'Required'
-            }
-
-            if (!values.author) {
-                errors.author = 'Required'
-            }
-
-            if (!values.cover) {
-                errors.cover = 'Required'
-            }
-            return errors
-        },
+        validate
     })
 
     return (

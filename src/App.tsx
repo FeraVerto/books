@@ -1,12 +1,11 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import {Route} from 'react-router-dom';
 import s from './App.module.css';
 import {BookList, BookRecord} from "./ui/BookList/BookList";
 import {CreateBook} from "./ui/CreateBook/CreateBook";
 import {Navigation} from "./ui/Navigation/Navigation";
 import {EditBook} from "./ui/EditBook/EditBook";
-import {EditBook22} from "./ui/EditBook/EditBook22";
-import {getBooks} from "./ui/common/getBooks";
+import {getBooks} from "./ui/utils/getBooks";
 
 
 export type ActionType = {
@@ -35,11 +34,11 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 books: state.books.filter(b => b.book.title.toLowerCase().includes(action.payload.filter.toLowerCase()) || b.book.author.toLowerCase().includes(action.payload.filter.toLowerCase()))
             }
 
-        case 'EDIT_BOOK':
-        return {
-            ...state,
-            books: state.books.filter(b => b.id === action.payload)
-        }
+        /*case 'EDIT_BOOK':
+            return {
+                ...state,
+                books: state.books.filter(b => b.id === action.payload)
+            }*/
 
         default:
             return state
@@ -55,12 +54,11 @@ export const App = () => {
     }, [])
 
     return (
-        <div className={s.App}>
-            <header className={s.App_header}>
+        <div className={s.app}>
+            <header className={s.app_header}>
                 <Navigation/>
             </header>
             <main className={s.main}>
-
 
                 <Route exact path="/" render={() => <BookList state={state}
                                                               dispatch={dispatch}/>}/>

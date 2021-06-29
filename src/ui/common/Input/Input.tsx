@@ -13,13 +13,15 @@ export type InputType = {
 
 export const Input = ({className, id, onChange, value, type, name, ...rest}: InputType) => {
     return (
-        <input type={type}
-               className={`${s.input} ${className}`}
-               id={id}
-               onChange={onChange}
-               value={value}
-               name={name}
-               {...rest}
-        />
+        <div className={s.wrap_input}>
+            <input type={type}
+                   className={`${s.input} ${className}`}
+                   id={id}
+                   onChange={onChange}
+                   value={value}
+                   name={name}
+                   {...rest}
+            />
+        </div>
     )
 }

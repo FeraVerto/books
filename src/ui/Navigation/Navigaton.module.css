@@ -1,17 +1,19 @@
 .navigation {
     width: 50%;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+
     font-size: 40px;
     text-transform: uppercase;
 }
 
 .navigation a {
     font-size: 3rem;
-    color: white;
+    color: var(--link-white-color);
 }
 
 .navigation a:hover {
-    background-image: linear-gradient(to right, #282c34 0%, #4830F0 51%, #282c34 100%);
+    background-image: linear-gradient(to right, var(--primary-gray-color) 0%, var(--primary-blue-color) 51%, var(--primary-gray-color) 100%);
 }
