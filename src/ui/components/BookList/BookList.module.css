@@ -120,3 +120,14 @@
         transform: translateX(0);
     }
 }
+
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+    .book_list {
+        margin-right: 0;
+    }
+
+    .book_item_link {
+        width: 100%;
+        margin-right: 0;
+    }
+}

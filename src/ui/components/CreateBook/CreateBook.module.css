@@ -17,3 +17,13 @@
 .button_position {
     margin-top: 20px;
 }
+
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+    .create_position {
+        display: block;
+    }
+
+    .form {
+        padding-bottom: 30px;
+    }
+}
