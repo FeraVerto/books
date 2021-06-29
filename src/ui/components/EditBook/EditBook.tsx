@@ -1,5 +1,5 @@
 import React, {Dispatch, useEffect, useState} from 'react';
-import {ActionType, StateType} from "../../App";
+import {ActionType, StateType} from "../../../App";
 import {Redirect, useParams} from "react-router-dom";
 import s from "./EditBook.module.css"
 import {EditBookForm} from "./EditBookForm/EditBookForm";

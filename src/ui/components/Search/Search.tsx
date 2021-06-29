@@ -3,8 +3,8 @@ import {Button} from '../common/Button/Button';
 import {Input} from "../common/Input/Input";
 import s from "./Search.module.css"
 import {useFormik} from "formik";
-import {ActionType} from "../../App";
-import {getBooks} from "../utils/getBooks";
+import {ActionType} from "../../../App";
+import {getBooks} from "../common/utils/getBooks";
 import {BookRecord} from "../BookList/BookList";
 
 type SearchType = {

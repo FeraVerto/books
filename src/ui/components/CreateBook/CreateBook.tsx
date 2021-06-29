@@ -3,7 +3,7 @@ import {useFormik} from "formik";
 import {v4 as uuidv4} from 'uuid';
 import {FormField} from "../FormField/FormField";
 import {BookType} from "../BookList/BookList";
-import {getBase64} from "../utils/getBase64";
+import {getBase64} from "../common/utils/getBase64";
 import s from "./CreateBook.module.css"
 import {Button} from "../common/Button/Button";
 import {Redirect} from "react-router-dom";

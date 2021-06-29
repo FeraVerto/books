@@ -2,8 +2,8 @@ import React, {ChangeEvent, useState} from 'react'
 import {FormikValues} from "formik/dist/types";
 import s from "./FormField.module.css"
 import {Input} from "../common/Input/Input";
-import download from "./../image/download.svg"
-import noPhoto from "./../image/nophoto.jpg"
+import download from "../../assets/image/download.svg"
+import noPhoto from "../../assets/image/nophoto.jpg"
 
 export type FormField = {
     formik: FormikValues

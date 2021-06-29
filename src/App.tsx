@@ -1,11 +1,11 @@
 import React, {useEffect, useReducer} from 'react';
 import {Route} from 'react-router-dom';
 import s from './App.module.css';
-import {BookList, BookRecord} from "./ui/BookList/BookList";
-import {CreateBook} from "./ui/CreateBook/CreateBook";
-import {Navigation} from "./ui/Navigation/Navigation";
-import {EditBook} from "./ui/EditBook/EditBook";
-import {getBooks} from "./ui/utils/getBooks";
+import {BookList, BookRecord} from "./ui/components/BookList/BookList";
+import {CreateBook} from "./ui/components/CreateBook/CreateBook";
+import {Navigation} from "./ui/components/Navigation/Navigation";
+import {EditBook} from "./ui/components/EditBook/EditBook";
+import {getBooks} from "./ui/components/common/utils/getBooks";
 
 
 export type ActionType = {

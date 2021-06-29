@@ -1,9 +1,9 @@
 import React, {Dispatch, useEffect} from 'react'
 import {NavLink} from 'react-router-dom';
-import {ActionType, StateType} from "../../App";
+import {ActionType, StateType} from "../../../App";
 import s from './BookList.module.css'
 import {Search} from "../Search/Search";
-import {getBooks} from "../utils/getBooks";
+import {getBooks} from "../common/utils/getBooks";
 
 export type BookType = {
     title: string,

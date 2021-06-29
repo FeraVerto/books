@@ -1,4 +1,4 @@
-import {BookRecord} from "../BookList/BookList";
+import {BookRecord} from "../../BookList/BookList";
 
 export const getBooks = (): Array<BookRecord> => {
     const resultArray: Array<BookRecord> = []

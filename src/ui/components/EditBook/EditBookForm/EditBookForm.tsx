@@ -1,11 +1,11 @@
 import React, {Dispatch} from 'react'
 import {useFormik} from "formik";
 import {BookType} from "../../BookList/BookList";
-import {getBase64} from "../../utils/getBase64";
+import {getBase64} from "../../common/utils/getBase64";
 import {FormField} from "../../FormField/FormField";
 import {Button} from "../../common/Button/Button";
 import s from "./EditFormBook.module.css";
-import {ActionType} from "../../../App";
+import {ActionType} from "../../../../App";
 
 export type CreateBookFormType = {
     setLocalStateUpdate: (localStateUpdate: string | null) => void
