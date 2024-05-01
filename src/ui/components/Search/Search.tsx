@@ -25,7 +25,10 @@ export const Search = ({ dispatch }: SearchType) => {
   });
 
   useEffect(() => {
-    setReceivedBooks(getBooks());
+    const result = getBooks();
+    if (result) {
+      setReceivedBooks(result);
+    }
   }, []);
 
   return (
