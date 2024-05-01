@@ -55,7 +55,7 @@ export const CreateBook = () => {
     createBook && localStorage.setItem(id, createBook);
   }, [createBook]);
 
-  if (editMode) return <Navigate to="/books" />;
+  if (editMode) return <Navigate to="/" />;
 
   return (
     <div className={s.create_position}>

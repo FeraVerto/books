@@ -68,7 +68,7 @@ export const App = () => {
       <main className={s.main}>
         <Routes>
           <Route
-            path="/books"
+            path="/"
             element={<BookList state={state} dispatch={dispatch} />}
           />
 

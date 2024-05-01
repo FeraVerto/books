@@ -28,7 +28,7 @@ export const EditBook = ({ state, dispatch }: EditBookType) => {
     localStateDelete && localStorage.removeItem(localStateDelete);
   }, [id, localStateUpdate, localStateDelete]);
 
-  if (editMode) return <Navigate to="/books" />;
+  if (editMode) return <Navigate to="/" />;
 
   return (
     <div className={s.create_position}>
