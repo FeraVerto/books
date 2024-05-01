@@ -1,0 +1,29 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.create_position {
+    height: 90vh;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_position {
+    margin-top: 20px;
+}
+
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+    .create_position {
+        display: block;
+    }
+
+    .form {
+        padding-bottom: 30px;
+    }
+}

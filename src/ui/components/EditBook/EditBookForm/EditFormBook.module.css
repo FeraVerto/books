@@ -1,0 +1,10 @@
+.button_block {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.button_position {
+    width: 48%;
+    margin-top: 20px;
+}

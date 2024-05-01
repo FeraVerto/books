@@ -1,0 +1,125 @@
+.error {
+    color: var(--error-red-color);
+}
+
+.input_image {
+    border: none;
+}
+
+.file_block {
+    margin-top: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image {
+    width: 200px;
+    height: 300px;
+}
+
+.image_container {
+    margin-right: 20px;
+
+    width: 500px;
+    height: 300px;
+
+    display: block;
+
+    position: relative;
+}
+
+.error_image {
+    font-size: 2rem;
+    position: absolute;
+    left: 23%;
+    top: 45%;
+}
+
+.image_container .image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+/*--------Кнопка загрузки файла--------*/
+.file_block_wrapper {
+    width: 100%;
+
+    position: relative;
+
+    text-align: center;
+}
+
+.input_image {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.input_file_icon {
+    margin-right: 15px;
+
+    height: 60px;
+    width: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input_file {
+    line-height: 1;
+}
+
+.input_file_button {
+    margin: 0 auto;
+
+    width: 100%;
+    height: 60px;
+
+    font-size: 1.125rem;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+label {
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .file_block {
+        flex-direction: column;
+    }
+
+    .image {
+        width: 100%;
+    }
+
+    .input_file_button {
+        margin-top: 20px;
+    }
+
+    .image_container {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .input_image {
+        width: 0;
+    }
+}
+
+
+
+
+
