@@ -16,6 +16,22 @@ export type CreateBookType = {
 export const CreateBook = () => {
   const [createBook, setCreateBook] = useState<string>('');
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    const id = uuidv4();
+    if (createBook) {
+      try {
+        createBook && localStorage.setItem(id, createBook);
+        setEditMode(true);
+        setError('');
+      } catch (e: any) {
+        if (e.code === DOMException.QUOTA_EXCEEDED_ERR) {
+          setError('Local Storage is full, please clear some space.');
+        }
+      }
+    }
+  }, [createBook]);
 
   const formik = useFormik<BookType>({
     initialValues: {
@@ -24,13 +40,11 @@ export const CreateBook = () => {
       cover: {},
     },
 
-    onSubmit: async (values: BookType) => {
+    onSubmit: async (values: BookType, { setSubmitting }) => {
       await getBase64(values.cover).then((base64) => {
         values = { ...values, cover: base64 };
       });
-      //сделать проверку на превышение 5Mb - лимит браузера
       setCreateBook(JSON.stringify(values));
-      setEditMode(true);
     },
 
     validate: (values: BookType) => {
@@ -50,16 +64,14 @@ export const CreateBook = () => {
     },
   });
 
-  useEffect(() => {
-    const id = uuidv4();
-    createBook && localStorage.setItem(id, createBook);
-  }, [createBook]);
-
-  if (editMode) return <Navigate to="/" />;
+  if (editMode) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className={s.create_position}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
+        {error !== '' && <span className={s.error}>! {error}</span>}
         <h2>Add a new book</h2>
         <FormField
           formik={formik}

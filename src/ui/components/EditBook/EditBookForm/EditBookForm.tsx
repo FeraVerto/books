@@ -5,7 +5,7 @@ import { getBase64 } from '../../common/utils/getBase64';
 import { FormField } from '../../FormField/FormField';
 import { Button } from '../../common/Button/Button';
 import s from './EditFormBook.module.css';
-import { ActionType } from '../../../../App';
+import { ActionType } from '../../../../store';
 
 export type CreateBookFormType = {
   setLocalStateUpdate: (localStateUpdate: string | null) => void;

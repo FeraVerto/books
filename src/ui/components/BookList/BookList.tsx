@@ -1,9 +1,9 @@
 import React, { Dispatch, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ActionType, StateType } from '../../../App';
 import s from './BookList.module.css';
 import { Search } from '../Search/Search';
 import { getBooks } from '../common/utils/getBooks';
+import { ActionType, StateType } from '../../../store';
 
 export type BookType = {
   title: string;
@@ -24,7 +24,7 @@ export type BooksListType = {
 export const BookList = ({ state, dispatch }: BooksListType) => {
   useEffect(() => {
     dispatch({ type: 'SET_BOOKS_LIST', payload: getBooks() });
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

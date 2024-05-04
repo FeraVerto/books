@@ -6,49 +6,7 @@ import { CreateBook } from './ui/components/CreateBook/CreateBook';
 import { Navigation } from './ui/components/Navigation/Navigation';
 import { EditBook } from './ui/components/EditBook/EditBook';
 import { getBooks } from './ui/components/common/utils/getBooks';
-
-export type ActionType = {
-  type: string;
-  payload: any;
-};
-
-const initialState = {
-  books: [],
-};
-
-export type StateType = {
-  books: Array<BookRecord>;
-};
-
-const reducer = (
-  state: StateType = initialState,
-  action: ActionType
-): StateType => {
-  switch (action.type) {
-    case 'SET_BOOKS_LIST':
-      return {
-        ...state,
-        books: [...action.payload],
-      };
-
-    case 'SEARCH_FILTER':
-      return {
-        ...state,
-        books: state.books.filter(
-          (b) =>
-            b.book.title
-              .toLowerCase()
-              .includes(action.payload.filter.toLowerCase()) ||
-            b.book.author
-              .toLowerCase()
-              .includes(action.payload.filter.toLowerCase())
-        ),
-      };
-
-    default:
-      return state;
-  }
-};
+import { ActionType, StateType, initialState, reducer } from './store';
 
 export const App = () => {
   const [state, dispatch] = useReducer<React.Reducer<StateType, ActionType>>(

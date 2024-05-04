@@ -1,8 +1,8 @@
-import React, { Dispatch, useEffect, useState } from 'react';
-import { ActionType, StateType } from '../../../App';
+import React, { Dispatch, useCallback, useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import s from './EditBook.module.css';
 import { EditBookForm } from './EditBookForm/EditBookForm';
+import { ActionType, StateType } from '../../../store';
 
 export type EditBookType = {
   state: StateType;
@@ -16,10 +16,10 @@ export const EditBook = ({ state, dispatch }: EditBookType) => {
   const [localStateDelete, setLocalStateDelete] = useState<string>('');
   const [editMode, setEditMode] = useState<boolean>(false);
 
-  const deleteBook = (id: string) => {
+  const deleteBook = useCallback((id: string) => {
     setLocalStateDelete(id);
     setEditMode(true);
-  };
+  }, []);
 
   useEffect(() => {
     if (id) {
