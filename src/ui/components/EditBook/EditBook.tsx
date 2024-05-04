@@ -1,4 +1,4 @@
-import React, { Dispatch, useCallback, useEffect, useState } from 'react';
+import { Dispatch, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import s from './EditBook.module.css';
 import { EditBookForm } from './EditBookForm/EditBookForm';
@@ -11,35 +11,22 @@ export type EditBookType = {
 
 export const EditBook = ({ state, dispatch }: EditBookType) => {
   const { id } = useParams<{ id: string }>();
-
-  const [localStateUpdate, setLocalStateUpdate] = useState<string | null>('');
-  const [localStateDelete, setLocalStateDelete] = useState<string>('');
   const [editMode, setEditMode] = useState<boolean>(false);
-
-  const deleteBook = useCallback((id: string) => {
-    setLocalStateDelete(id);
-    setEditMode(true);
-  }, []);
-
-  useEffect(() => {
-    if (id) {
-      localStateUpdate && localStorage.setItem(id, localStateUpdate);
-    }
-    localStateDelete && localStorage.removeItem(localStateDelete);
-  }, [id, localStateUpdate, localStateDelete]);
+  const [error, setError] = useState<string>('');
 
   if (editMode) return <Navigate to="/" />;
 
   return (
     <div className={s.create_position}>
       <div className={s.form}>
+        {error !== '' && <span className={s.error}>! {error}</span>}
+
         <h2>Edit book</h2>
         {state.books.map((b) => {
           return (
             b.id === id && (
               <EditBookForm
-                setLocalStateUpdate={setLocalStateUpdate}
-                deleteBook={deleteBook}
+                setError={setError}
                 editMode={editMode}
                 setEditMode={setEditMode}
                 cover={b.book.cover}

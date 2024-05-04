@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React, { Dispatch, useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { BookType } from '../../BookList/BookList';
 import { getBase64 } from '../../common/utils/getBase64';
@@ -8,8 +8,6 @@ import s from './EditFormBook.module.css';
 import { ActionType } from '../../../../store';
 
 export type CreateBookFormType = {
-  setLocalStateUpdate: (localStateUpdate: string | null) => void;
-  deleteBook: (id: string) => void;
   editMode: boolean;
   setEditMode: (editMode: boolean) => void;
   cover: string;
@@ -18,17 +16,45 @@ export type CreateBookFormType = {
   author: string;
   idParam: string;
   dispatch: Dispatch<ActionType>;
+  setError: (error: string) => void;
 };
 
 export const EditBookForm = ({
   title,
   author,
   id,
-  setLocalStateUpdate,
-  deleteBook,
+  setError,
   setEditMode,
   cover,
 }: CreateBookFormType) => {
+  const [localStateUpdate, setLocalStateUpdate] = useState<string | null>('');
+  const [localStateDelete, setLocalStateDelete] = useState<string>('');
+
+  const deleteBook = useCallback(
+    (id: string) => {
+      setLocalStateDelete(id);
+    },
+    [setLocalStateDelete]
+  );
+
+  useEffect(() => {
+    if (localStateUpdate) {
+      try {
+        localStateUpdate && localStorage.setItem(id, localStateUpdate);
+        setEditMode(true);
+        setError('');
+      } catch (e: any) {
+        if (e.code === DOMException.QUOTA_EXCEEDED_ERR) {
+          setError('Local Storage is full, please clear some space.');
+        }
+      }
+    }
+
+    if (localStateDelete !== '') {
+      localStorage.removeItem(localStateDelete);
+    }
+  }, [id, localStateUpdate, setEditMode, setError, localStateDelete]);
+
   const formik = useFormik<BookType>({
     initialValues: {
       title: title,
@@ -48,7 +74,6 @@ export const EditBookForm = ({
         });
       }
       setLocalStateUpdate(JSON.stringify(values));
-      setEditMode(true);
     },
 
     validate: (values: BookType) => {
